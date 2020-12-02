@@ -1,26 +1,53 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-        <meta charset="utf-8">
-        <title>Todo Application</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+  <meta charset="utf-8">
+  <title>Todo Application</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+  <link href="//db.onlinewebfonts.com/c/35e23faf72946beaae07e9f37976f728?family=Purisa" rel="stylesheet"
+    type="text/css" />
 </head>
+
 <body>
-    <div class="form-group">
-      <h1>To-Do <small>List</small></h1>
+  <div class="form-group">
+    <h1>To-Do <small>List</small></h1>
+    <!-- des choses a ajouter ici -->
+    <form action="/todo/" method="post">
+      {% csrf_token %}
+    <label for="{{ form.content.id_for_label }}">Task Content</label>
 
+      {{form.content}}
+      <button type="submit">Add task</button>
+    </form>  
+  </div>
 
-      <!-- des choses a ajouter ici -->
-
-    </div>
-
-    <div></div>
-
+  <div>
+    {% if tasks_list %}
     <ul class="list-unstyled" id="todo">
+      {% for task in tasks_list %}
       <!-- des choses a ajouter ici -->
-
+        <li>
+          <a href="/todo/task/edit/{{task.id}}" {% if task.is_done %} class="task-done" {% endif %} >
+            {{ task.content }}
+          </a>
+          {% if task.is_done == False %}
+          <a href="/todo/task/done/{{task.id}}" class="done">
+            Done
+          </a>
+          <a href="/todo/task/delete/{{task.id}}" class="delete">
+            Delete
+          </a>
+          {% endif %}
+        </li>
+      {% endfor %}
     </ul>
+    {% else %}
+    <p>No task found</p>
+    {% endif %}
+  </div>
 
 </body>
+
 </html>

@@ -13,10 +13,11 @@ body{
 
 }
 
-#todo ul{
+#todo li{
   border-bottom:1px solid black;
   padding:5px;
   margin:2px;
+  list-style: none;
 }
 
 a {
@@ -26,6 +27,10 @@ a {
   height:30px;
   text-decoration:none;
   width:100%;
+}
+
+a:hover{
+  color: #d9d9d9
 }
 
 .task-done{
