@@ -1,17 +1,39 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-        <meta charset="utf-8">
-        <title>Edit Todo Application</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+  <meta charset="utf-8">
+  <title>Edit Todo Application</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+  <link href="//db.onlinewebfonts.com/c/35e23faf72946beaae07e9f37976f728?family=Purisa" rel="stylesheet"
+    type="text/css" />
 </head>
+
 <body>
-    <div class="form-group">
-      <h1>To-Do <small>Edit</small></h1>
-      <!-- des choses a ajouter ici -->
+  <div class="form-group">
+    <h1>To-Do <small>Edit</small></h1>
+    <!-- des choses a ajouter ici -->
+    <h2>Task : {{ task.content }}</h2>
+    <p>created : {{ task.created_date }}</p>
+    <form action="/todo/task/edit/{{task.id}}" method="post">
+      {% csrf_token %}
+      <label for="{{ form.content.id_for_label }}">Task Content</label>
+      {{form.content}}
+      <br>
+      <label for="{{ form.is_done.id_for_label }}">Is Done</label>
+      {{form.is_done}}
+      <br>
+      <button type="submit">Edit task</button>
+    </form>
+  </div>
+  <div id="todo">
+    <a href="/todo/task/delete/{{task.id}}" class="delete">
+      Delete
+    </a>
 
-
-    </div>
+  </div>
+  <a href="/todo/">Back</a>
 </body>
+
 </html>
